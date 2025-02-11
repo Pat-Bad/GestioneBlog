@@ -1,5 +1,7 @@
 package it.epicode.GestioneBlog.post;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.epicode.GestioneBlog.autori.Autore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +24,7 @@ public class Post {
     private String contenuto;
     private int tempoDiLettura;
 
+    @JsonIgnoreProperties("postPubblicati")
     @ManyToOne
     private Autore autore;
 

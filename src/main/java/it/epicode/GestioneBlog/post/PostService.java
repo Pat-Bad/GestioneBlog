@@ -1,6 +1,8 @@
 package it.epicode.GestioneBlog.post;
 
 import it.epicode.GestioneBlog.Responses.CreateResponse;
+import it.epicode.GestioneBlog.autori.Autore;
+import it.epicode.GestioneBlog.autori.AutoreRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,12 +15,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostService {
     private final PostRepository postRepository;
+    private final AutoreRepository autoreRepository;
 
     public CreateResponse save(PostRequest request){
         if(postRepository.existsByTitolo(request.getTitolo())) {
             throw new EntityExistsException("Post già esistente");}
+        Autore autore = autoreRepository.findById(request.getAutoreId()).get();
         Post post = new Post();
         BeanUtils.copyProperties(request, post);
+        post.setAutore(autore);
         postRepository.save(post);
 
         CreateResponse response = new CreateResponse();
