@@ -7,6 +7,8 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final AutoreRepository autoreRepository;
+
 
     public CreateResponse save(PostRequest request){
         if(postRepository.existsByTitolo(request.getTitolo())) {
@@ -43,9 +46,14 @@ public class PostService {
         postRepository.delete(post);
     }
 
-    public List<Post> findAll(){
-        return postRepository.findAll();
+
+//Torna una Page di tutti i Post, gli passo l'oggetto Pageable in modo che me lo configuri poi correttamente. Poi
+//ovviamente deve tornare il find all di quella pageable.
+    public Page<Post> findAll(Pageable pageable){
+        return postRepository.findAll(pageable);
     }
+
+
 
     public Post findById(Long id){
         if(!postRepository.existsById(id)){
@@ -53,4 +61,6 @@ public class PostService {
         }
         return postRepository.findById(id).get();
     }
+
+
 }

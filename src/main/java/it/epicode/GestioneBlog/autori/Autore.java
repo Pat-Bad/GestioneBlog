@@ -1,5 +1,6 @@
 package it.epicode.GestioneBlog.autori;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.epicode.GestioneBlog.post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

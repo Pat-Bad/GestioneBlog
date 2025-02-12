@@ -2,20 +2,33 @@ package it.epicode.GestioneBlog.post;
 
 import it.epicode.GestioneBlog.Responses.CreateResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/blogPosts")
 public class PostController {
     private final PostService postService;
 
+ // cambio il tipo di ritorno
+//torna una page di tutti i post, richiamo il metodo creato nel service e gli passo i parametri con requestparam
+//creo una pageable a cui assegno i parametri
+//ritorno il pageable con il metodo
+//patricamente con pageable gli dico come li voglio vedere
     @GetMapping("/blogPosts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Post> findAll() {
-        return postService.findAll();
+    public Page<Post> findAll(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy) {
+        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+        return postService.findAll(pageable);
     }
+
+
 
     @GetMapping("/blogPosts/{id}")
     @ResponseStatus(HttpStatus.OK)

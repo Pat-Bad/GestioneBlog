@@ -1,6 +1,5 @@
 package it.epicode.GestioneBlog.post;
 
-import it.epicode.GestioneBlog.autori.Autore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
