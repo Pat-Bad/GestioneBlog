@@ -2,6 +2,7 @@ package it.epicode.GestioneBlog.post;
 
 import it.epicode.GestioneBlog.Responses.CreateResponse;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,8 +24,7 @@ public class PostController {
 //patricamente con pageable gli dico come li voglio vedere
     @GetMapping("/blogPosts")
     @ResponseStatus(HttpStatus.OK)
-    public Page<Post> findAll(@RequestParam int page, @RequestParam int size, @RequestParam String sortBy) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sortBy));
+    public Page<Post> findAll(@ParameterObject Pageable pageable) {
         return postService.findAll(pageable);
     }
 

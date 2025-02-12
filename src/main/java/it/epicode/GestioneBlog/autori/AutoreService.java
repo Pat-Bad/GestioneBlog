@@ -33,7 +33,6 @@ public class AutoreService {
     }
 
     //modificare un autore
-
     public Autore modify(Long id, AutoreRequest request){
         Autore autore = autoreRepository.findById(id).get();
         BeanUtils.copyProperties(request, autore);
