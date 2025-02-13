@@ -3,23 +3,26 @@ package it.epicode.GestioneBlog.autori;
 import it.epicode.GestioneBlog.Responses.CreateResponse;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Validated
 public class AutoreService {
     private final AutoreRepository autoreRepository;
 
     //qui devo mettere i metodi per fare le operazioni CRUD
 
    //salvataggio di un autore
-    public CreateResponse save(AutoreRequest request){
+    public CreateResponse save(@Valid AutoreRequest request){
         if(autoreRepository.existsByEmail(request.getEmail())){
             throw new EntityExistsException("Autore già esistente");}
 
