@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -27,9 +26,12 @@ public class CloudinaryController {
             Map result = cloudinary.uploader().upload(file.getBytes(),
 
                     //Veicoli è la cartella, public_id è nome. map è coppia chiave valore!
-                    Cloudinary.asMap("folder", "veicoli",
+                    Cloudinary.asMap("folder", "autori",
                                               "public_id", file.getOriginalFilename()));
-        } catch (IOException e) {
+            String url = result.get("secure_url").toString();
+        }
+
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
 
