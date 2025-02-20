@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table
-
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
